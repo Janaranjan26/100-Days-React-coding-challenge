@@ -1,28 +1,23 @@
-# Hackerank's code-Program using conditional statement (elif):
+import React, { useState } from 'react'
 
-n = int(input("Enter a number: "))
+const Counter = () => {
 
-if n % 2 != 0:
-    print("Weird")
-elif n % 2 == 0 and 2 < n <= 5:
-    print("Not Weird")
-elif n % 2 == 0 and 6 < n <= 20:
-    print("Weird")
-elif n > 20:
-    print("Not Weird")
+  var [count, updateCount] = useState(0)
+  const countIncrement = () => {
+    updateCount(count + 1)
+  }  
+  const countDecrement = () => {
+    updateCount(count - 1)
+  }
+  return (
+    <div className='container'>
+      <table className="table table-bordered table-striped">
+      <p>Counter: {count}</p>  
+      <button type="button" className="btn btn-success" onClick={countIncrement}>Increment</button>
+      <button type="button" className="btn btn-danger" onClick={countDecrement}>Decrement</button>
+      </table>
+    </div>
+  )
+}
 
-
-# Leetcode's code - Check whether the given number is a palindrome or not:
-
-num = int(input("Enter a number : "))
-temp = num
-reverse = 0
-while temp > 0:
-    remainder = temp % 10
-    reverse = (reverse * 10) + remainder
-    temp = temp // 10
-
-if num == reverse:
-    print("the given number is palindrome")
-else:
-    print("The given number is not a palindrome")
+export default Counter
