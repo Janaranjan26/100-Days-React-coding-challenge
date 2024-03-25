@@ -1,0 +1,32 @@
+import React, { useState } from 'react'
+
+const TemperatureConverter = () => {
+  const [celsius, setCelsius]  = useState(0);
+  const [fahrenheit, setFahrenheit] = useState(0);
+  
+  const convertToCelsius = () => {
+    setCelsius((fahrenheit-32)*5/9);
+  }
+  const convertToFahrenheit = () => {
+    setFahrenheit((celsius*9/5)+32);
+  }
+  
+  return (
+    <div>
+      <h1>Celsius and Fahrenheit converter</h1>
+      <label> Celsius: 
+      <input type='text' name='Celsius' className='form-control' value={celsius} onChange={(e) => setCelsius(e.target.value)}/>
+      </label> 
+      <br />
+      <button type='button' className='btn btn-primary' onClick={convertToFahrenheit}>Convert</button>
+      <br /> <br /> <br />
+      <label> Fahrenheit:
+      <input type='text' name='Fahrenheit' className='form-control' value={fahrenheit} onChange={(e) => setFahrenheit(e.target.value)}/>
+      </label>
+      <br />
+      <button type='button' className='btn btn-primary' onClick={convertToCelsius}>Convert</button>
+    </div>
+  )
+}
+
+export default TemperatureConverter
