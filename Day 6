@@ -1,0 +1,64 @@
+import React, { Component } from "react";
+import axios from "axios";
+
+class WeatherForecast extends Component {
+    state = { city: "", weatherData: null, error: null };
+
+    handleChange = (e) => {
+        this.setState({ city: e.target.value });
+    };
+
+    fetchWeatherData = () => {
+        const { city } = this.state;
+        const apiKey = "5cceac8207a3c15667f09629769aa7c8"; 
+        const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+
+        axios
+            .get(apiUrl)
+            .then((response) => {
+                this.setState({ weatherData: response.data, error: null });
+            })
+            .catch((error) => {
+                this.setState({ weatherData: null, error: "City not found" });
+            });
+    };
+
+    render() {
+        const { city, weatherData, error } = this.state;
+
+        return (
+            <div>
+                <label>
+                    Enter The City:
+                    <input
+                        type="text"
+                        className="cityName"
+                        name="City"
+                        value={city}
+                        onChange={this.handleChange}
+                    />
+                </label>
+                <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={this.fetchWeatherData}
+                >
+                    Search
+                </button>
+
+                {error && <p>{error}</p>}
+
+                {weatherData && (
+                    <div>
+                        <h2>Weather Forecast for {city}</h2>
+                        <p>Temperature: {(weatherData.main.temp - 273.15).toFixed(2)} °C</p>
+                        <p>Weather: {weatherData.weather[0].main}</p>
+                        {/* Add more weather details as needed */}
+                    </div>
+                )}
+            </div>
+        );
+    }
+}
+
+export default WeatherForecast;
